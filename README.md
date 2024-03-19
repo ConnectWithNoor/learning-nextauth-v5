@@ -13,6 +13,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 #### Packages Used
 
+- Next.js 14
 - Prisma ORM
 - PostgresDB [Neon.tech](https://console.neon.tech/)
 - ShaedCN
