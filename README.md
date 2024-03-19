@@ -1,4 +1,4 @@
-## NextAuth V5
+## Learning how to use NextAuth V5 (Auth.js V5)
 
 #### Now Known as [Auth.js](https://authjs.dev/)
 
@@ -14,6 +14,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 #### Packages Used
 
 - Next.js 14
+- [Auth.js v5](https://authjs.dev/)
 - Prisma ORM
 - PostgresDB [Neon.tech](https://console.neon.tech/)
 - ShaedCN
