@@ -25,6 +25,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Register user
 - AuthGuard (public and private route/page)
 - [Edge compatibility](https://authjs.dev/guides/upgrade-to-v5?authentication-method=middleware#edge-compatibility) for Auth.js to work with OEM (Prisma) [//]: # "Next route/middleware runs on edge while Prisma dones't support egde yet, by forcing a JWT session strategy"
+- Encoding JWT token (custom logic)
 
 #### Authentication Strategies used
 
