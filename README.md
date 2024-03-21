@@ -28,9 +28,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Callbacks jwt and session (The flow goes from JWT to Session, meaning whatever we encoding in jwt will be recieved in session)
 - Callback for signin (custom signin logic ex: block signin of particular user)
 - Role based Authentication (Admin and User)
+- Authentication on server components and client components
+- Created custom prisma adapter to support custom logic OAuth account creation
 
 #### Authentication Strategies used
 
 - By using email and password
+- OAuth (Github and Google)
 
 Made by [Noor Muhammad](https://www.linkedin.com/in/connectwithnoor)

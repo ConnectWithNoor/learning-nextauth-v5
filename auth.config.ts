@@ -1,16 +1,44 @@
 import Credentials from "next-auth/providers/credentials";
-import { LoginSchema } from "./schemas";
 import bcrypt from "bcryptjs";
-
+import Github from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 import type { NextAuthConfig } from "next-auth";
-import { getUserByEmail } from "./data/user";
+
+import { getUserByEmail } from "@/data/user";
+import { LoginSchema } from "@/schemas";
 
 export default {
   providers: [
+    Github({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_SECRET_ID,
+      profile(profile) {
+        return {
+          id: profile.id.toString(),
+          name: profile.name ?? profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+          isUserVerified: profile?.two_factor_authentication,
+        };
+      },
+    }),
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_SECRET_ID,
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          isUserVerified: profile?.email_verified,
+        };
+      },
+    }),
     Credentials({
       name: "Credentials",
 
-      // authorize runs when signin is called in login server action
+      // authorize runs when signin is called in login server action for credentials
       async authorize(credentials) {
         const validatedfields = LoginSchema.safeParse(credentials);
 

@@ -27,3 +27,17 @@ export const getUserById = async (id: string) => {
     return null;
   }
 };
+
+export const updateUserById = async (
+  id: string,
+  data: { [key: string]: any }
+) => {
+  try {
+    await db.user.update({
+      where: { id },
+      data: data,
+    });
+  } catch (error) {
+    return null;
+  }
+};

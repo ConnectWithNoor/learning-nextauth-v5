@@ -26,7 +26,9 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
         case "CredentialsSignin":
           return { error: "Invalid credentials!" };
         case "AccessDenied": {
-          return { error: "Access denied!" };
+          return {
+            error: "Please confirm your account or contact administrator",
+          };
         }
         default:
           return { error: "An error occurred!" };
