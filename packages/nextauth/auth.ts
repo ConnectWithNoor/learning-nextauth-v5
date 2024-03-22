@@ -1,32 +1,11 @@
 import NextAuth from "next-auth";
-import authConfig from "@/auth.config";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { db } from "./lib/db";
-import { getUserById } from "./data/user";
 import { UserRole as UserRoleSchemaType } from "@prisma/client";
-import type { Adapter } from "@auth/core/adapters";
 
-function customPrismaAdapter(): Adapter {
-  return {
-    ...PrismaAdapter(db),
-    // @ts-ignore
-    createUser: (data) => {
-      // the data is coming from the profile function in the providers
-      // @ts-ignore
-      const { isUserVerified } = data;
-      // @ts-ignore
-      delete data.isUserVerified;
+import authConfig from "@/packages/nextauth/auth.config";
+import customPrismaAdapter from "@/packages/nextauth/custom-prisma-adapter";
 
-      const userData = {
-        ...data,
-        emailVerified: isUserVerified ? new Date() : null,
-        role: UserRoleSchemaType.USER,
-      };
-      console.log("ddd", userData);
-      return db.user.create({ data: userData });
-    },
-  };
-}
+import { db } from "@/lib/db";
+import { getUserById } from "@/data/user";
 
 export const {
   handlers: { GET, POST },
@@ -78,7 +57,7 @@ export const {
       return token;
     },
   },
-  adapter: customPrismaAdapter(),
+  adapter: customPrismaAdapter(db),
   // pages are buggy in v5. a PR is currently open to fix this
   // https://github.com/nextauthjs/next-auth/issues/9994
   // https://github.com/nextauthjs/next-auth/pull/10288

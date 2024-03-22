@@ -1,4 +1,4 @@
-import { auth, signOut } from "@/auth";
+import { auth, signOut } from "@/packages/nextauth/auth";
 
 type Props = {};
 
