@@ -6,6 +6,7 @@ import customPrismaAdapter from "@/packages/nextauth/custom-prisma-adapter";
 
 import { db } from "@/lib/db";
 import { getUserById } from "@/data/user";
+// import { PAGES } from "@/global/routes";
 
 export const {
   handlers: { GET, POST },
@@ -13,6 +14,15 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  // pages are buggy in v5. a PR is currently open to fix this
+  // https://github.com/nextauthjs/next-auth/issues/9994
+  // https://github.com/nextauthjs/next-auth/pull/10288
+
+  // pages: {
+  //   signIn: PAGES.LOGIN,
+  //   error: PAGES.ERROR,
+  // },
+
   callbacks: {
     async signIn({ user }) {
       if (!user?.id) return false;
@@ -58,9 +68,7 @@ export const {
     },
   },
   adapter: customPrismaAdapter(db),
-  // pages are buggy in v5. a PR is currently open to fix this
-  // https://github.com/nextauthjs/next-auth/issues/9994
-  // https://github.com/nextauthjs/next-auth/pull/10288
+
   session: { strategy: "jwt" },
   ...authConfig,
 });

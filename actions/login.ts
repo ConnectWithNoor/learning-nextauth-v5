@@ -5,6 +5,7 @@ import { LoginSchema } from "@/schemas";
 import { signIn } from "@/packages/nextauth/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
+import { AUTH_ERRORS } from "@/packages/nextauth/error-msgs";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -22,17 +23,11 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     });
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return { error: "Invalid credentials!" };
-        case "AccessDenied": {
-          return {
-            error: "Please confirm your account or contact administrator",
-          };
-        }
-        default:
-          return { error: "An error occurred!" };
-      }
+      const errorMessage =
+        AUTH_ERRORS[error.type as keyof typeof AUTH_ERRORS] ||
+        "An error occurred!";
+
+      return { error: errorMessage };
     }
 
     throw error;

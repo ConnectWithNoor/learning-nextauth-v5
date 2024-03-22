@@ -2,6 +2,7 @@
 
 import React, { useState, useTransition } from "react";
 import * as z from "zod";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,13 +24,15 @@ import { Button } from "@/components/ui/button";
 import FormError from "@/components/ui/form-error";
 import FormSuccess from "@/components/ui/form-success";
 import { login } from "@/actions/login";
+import { AUTH_ERRORS } from "@/packages/nextauth/error-msgs";
 
 type Props = {};
 
 function LoginForm({}: Props) {
   const [isPending, startTransition] = useTransition();
+  const authErrorMessage = useSearchParams().get("error");
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
-    undefined
+    AUTH_ERRORS[authErrorMessage as keyof typeof AUTH_ERRORS] || undefined
   );
   const [successMessage, setSuccessMessage] = useState<string | undefined>(
     undefined

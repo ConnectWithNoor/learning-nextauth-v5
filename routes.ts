@@ -3,6 +3,8 @@
  * @type {string[]}
  */
 
+import { PAGES } from "./global/routes";
+
 const publicRoutes = ["/"];
 
 /**
@@ -10,7 +12,7 @@ const publicRoutes = ["/"];
  * @type {string[]}
  */
 
-const authRoutes = ["/auth/login", "/auth/register"];
+const authRoutes = [PAGES.LOGIN, PAGES.REGISTER, PAGES.ERROR];
 
 /**
  *  Prefix for API routes that are used for authentication purposes. Never block them
@@ -18,6 +20,6 @@ const authRoutes = ["/auth/login", "/auth/register"];
  */
 const apiAuthPrefix = "/api/auth";
 
-const DEFAULT_LOGIN_REDIRECT = "/settings";
+const DEFAULT_LOGIN_REDIRECT = PAGES.SETTINGS_PAGE;
 
 export { publicRoutes, authRoutes, apiAuthPrefix, DEFAULT_LOGIN_REDIRECT };
