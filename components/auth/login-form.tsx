@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import FormError from "@/components/ui/form-error";
 import FormSuccess from "@/components/ui/form-success";
 import { login } from "@/actions/login";
-import { AUTH_ERRORS } from "@/packages/nextauth/error-msgs";
+import { AUTH_ERRORS } from "@/global/constant-msgs";
 
 type Props = {};
 
@@ -109,7 +109,10 @@ function LoginForm({}: Props) {
               )}
             />
           </div>
-          <FormError message={errorMessage} />
+          <FormError
+            message={errorMessage}
+            isResendAllowed={errorMessage === AUTH_ERRORS.AccessDenied}
+          />
           <FormSuccess message={successMessage} />
           <Button type="submit" className="w-full" disabled={isPending}>
             Login

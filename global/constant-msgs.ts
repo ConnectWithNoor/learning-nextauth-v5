@@ -1,3 +1,4 @@
+// these are next-auth error codes
 const AUTH_ERRORS = {
   Signin: "Try signing with a different account.",
   OAuthSignin: "Try signing with a different account.",
@@ -8,8 +9,10 @@ const AUTH_ERRORS = {
   OAuthAccountNotLinked: "Email already associated with another account.",
   EmailSignin: "Check your email address.",
   CredentialsSignin: "Invalid credentials!",
-  AccessDenied: "Please confirm your account or contact administrator",
+  AccessDenied: "Please confirm your account or contact administrator.",
   default: "Unable to sign in.",
 } as const;
 
-export { AUTH_ERRORS };
+const SUCCESS_MESSAGES = {} as const;
+
+export { AUTH_ERRORS, SUCCESS_MESSAGES };

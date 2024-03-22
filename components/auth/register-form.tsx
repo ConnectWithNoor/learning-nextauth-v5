@@ -50,6 +50,7 @@ function RegisterForm({}: Props) {
     startTransition(() => {
       register(values).then((data) => {
         setErrorMessage(data.error);
+        // TODO: Add 2FA
         setSuccessMessage(data.success);
       });
     });

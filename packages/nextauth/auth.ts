@@ -5,7 +5,7 @@ import authConfig from "@/packages/nextauth/auth.config";
 import customPrismaAdapter from "@/packages/nextauth/custom-prisma-adapter";
 
 import { db } from "@/lib/db";
-import { getUserById } from "@/data/user";
+import { getUserById } from "@/service/user";
 // import { PAGES } from "@/global/routes";
 
 export const {
@@ -35,7 +35,7 @@ export const {
 
       if (existingUser && !existingUser.emailVerified) {
         // user exists in our db is not verified
-        // TODO: change it to false
+
         return false;
       }
       // defauilt return true
