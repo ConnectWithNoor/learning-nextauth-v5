@@ -30,6 +30,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Role based Authentication (Admin and User)
 - Authentication on server components and client components
 - Created custom prisma adapter to support custom logic OAuth account creation
+- Restrict unverified users (without email verification) to login.
+- Send email with email verification token to verify user.
 
 #### Authentication Strategies used
 
