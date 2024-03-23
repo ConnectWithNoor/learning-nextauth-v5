@@ -1,4 +1,6 @@
+import VerificationTemplateEmail from "@/components/auth/verification-email-template";
 import { db } from "@/lib/db";
+import resend from "@/lib/email";
 
 const getVerificationTokenByEmail = async (email: string) => {
   try {
@@ -50,6 +52,25 @@ const createVerificationToken = async (
     });
     return verificationToken;
   } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+const sendVerificationEmail = async (
+  email: string,
+  token: string,
+  hostname: string
+) => {
+  try {
+    const confirmLink = `${hostname}/auth/new-verification?token=${token}`;
+    await resend.emails.send({
+      from: `${process.env.EMAIL_FROM}`,
+      to: email,
+      subject: "Confirm your email",
+      react: VerificationTemplateEmail({ confirmLink }),
+    });
+  } catch (error) {
     return null;
   }
 };
@@ -59,4 +80,5 @@ export {
   getVerificationTokenByToken,
   removeVerificationTokenById,
   createVerificationToken,
+  sendVerificationEmail,
 };

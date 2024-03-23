@@ -1,5 +1,7 @@
 ## Learning how to use NextAuth V5 (Auth.js V5)
 
+![Preview](https://i.imgur.com/KlfXvY2.png)
+
 #### Now Known as [Auth.js](https://authjs.dev/)
 
 First, run the development server:
@@ -18,6 +20,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Prisma ORM
 - PostgresDB [Neon.tech](https://console.neon.tech/)
 - ShaedCN
+- [Resend](https://resend.com/)
 
 #### Features
 
@@ -31,7 +34,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Authentication on server components and client components
 - Created custom prisma adapter to support custom logic OAuth account creation
 - Restrict unverified users (without email verification) to login.
-- Send email with email verification token to verify user.
+- Send verification email on signup by credentials.
 
 #### Authentication Strategies used
 

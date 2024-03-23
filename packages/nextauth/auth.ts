@@ -52,10 +52,14 @@ export const {
         session.user.emailVerified = token.emailVerified as Date;
       }
 
+      if (token.isNewUser && session.user) {
+        session.user.isNewUser = token.isNewUser as boolean;
+      }
+
       return session;
     },
 
-    async jwt({ token }) {
+    async jwt({ token, isNewUser }) {
       const id = token.sub;
       if (!id) return token; //no id means logged out
 
@@ -63,6 +67,11 @@ export const {
       if (!existingUser) return token;
       token.role = existingUser.role;
       token.emailVerified = existingUser.emailVerified;
+
+      // check if user this is a new session or not
+      if (typeof isNewUser === "boolean") {
+        token.isNewUser = isNewUser;
+      }
 
       return token;
     },

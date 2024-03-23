@@ -4,9 +4,10 @@ import ResendEmailButton from "@/components/auth/resend-email-button";
 type Props = {
   message?: string;
   isResendAllowed?: boolean;
+  userEmail?: string;
 };
 
-function FormError({ message, isResendAllowed = false }: Props) {
+function FormError({ message, isResendAllowed = false, userEmail }: Props) {
   if (!message) return null;
 
   return (
@@ -17,7 +18,7 @@ function FormError({ message, isResendAllowed = false }: Props) {
         <ExclamationTriangleIcon />
       )}
       <p>{message} </p>
-      {isResendAllowed && <ResendEmailButton />}
+      {isResendAllowed && <ResendEmailButton userEmail={userEmail} />}
     </div>
   );
 }

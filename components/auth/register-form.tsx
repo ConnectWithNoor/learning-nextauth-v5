@@ -45,13 +45,14 @@ function RegisterForm({}: Props) {
   });
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    setErrorMessage("");
-    setSuccessMessage("");
+    setErrorMessage(undefined);
+    setSuccessMessage(undefined);
     startTransition(() => {
-      register(values).then((data) => {
-        setErrorMessage(data.error);
+      register(values, window.location.origin).then((data) => {
+        setErrorMessage(data?.error);
         // TODO: Add 2FA
-        setSuccessMessage(data.success);
+        // @ts-ignore
+        setSuccessMessage(data?.success);
       });
     });
   };

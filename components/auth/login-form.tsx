@@ -112,6 +112,7 @@ function LoginForm({}: Props) {
           <FormError
             message={errorMessage}
             isResendAllowed={errorMessage === AUTH_ERRORS.AccessDenied}
+            userEmail={form.getValues("email")}
           />
           <FormSuccess message={successMessage} />
           <Button type="submit" className="w-full" disabled={isPending}>

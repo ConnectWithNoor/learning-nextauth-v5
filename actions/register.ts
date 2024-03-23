@@ -5,9 +5,12 @@ import { RegisterSchema } from "@/schemas";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/service/user";
-// import { generateVerificationToken } from "@/lib/tokens";
+import { sendVerificationTokenEmail } from "@/actions/verification";
 
-export const register = async (values: z.infer<typeof RegisterSchema>) => {
+export const register = async (
+  values: z.infer<typeof RegisterSchema>,
+  hostname: string
+) => {
   const validatedFields = RegisterSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -30,9 +33,14 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       password: hashedPassword,
     },
   });
+  // send verification email when user register with credentials
 
-  // TODO: Send verification email
-  // const verificationToken = await generateVerificationToken(email);
-
-  return { success: "Confirmation email sent!" };
+  try {
+    return await sendVerificationTokenEmail(email, hostname);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error sending verification email", error.message);
+    }
+    return { success: "We have encountered an internal error" };
+  }
 };

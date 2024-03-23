@@ -6,6 +6,7 @@ declare module "next-auth" {
     user: {
       role: UserRoleSchemaType;
       emailVerified: Date;
+      isNewUser?: boolean;
     } & DefaultSession["user"];
   }
 }
