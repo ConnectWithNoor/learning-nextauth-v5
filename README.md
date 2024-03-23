@@ -1,6 +1,6 @@
 ## Learning how to use NextAuth V5 (Auth.js V5)
 
-![Preview](https://i.imgur.com/KlfXvY2.png)
+[Preview](https://i.imgur.com/KlfXvY2.png)
 
 #### Now Known as [Auth.js](https://authjs.dev/)
 
