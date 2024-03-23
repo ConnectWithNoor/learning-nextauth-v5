@@ -5,14 +5,14 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { PAGES } from "@/global/routes";
 
 type Props = {};
 
 function Social({}: Props) {
   const handleSignIn = async (provider: "google" | "github") => {
     signIn(provider, {
-      callbackUrl: DEFAULT_LOGIN_REDIRECT,
+      callbackUrl: PAGES.SETTINGS_PAGE,
     });
   };
 

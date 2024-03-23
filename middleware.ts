@@ -1,11 +1,6 @@
 import NextAuth from "next-auth";
 import authConfig from "@/packages/nextauth/auth.config";
-import {
-  DEFAULT_LOGIN_REDIRECT,
-  apiAuthPrefix,
-  authRoutes,
-  publicRoutes,
-} from "@/routes";
+import { apiAuthPrefix, authRoutes, publicRoutes } from "@/routes";
 import { NextResponse } from "next/server";
 import { PAGES } from "./global/routes";
 
@@ -17,7 +12,7 @@ export default auth((req) => {
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+  const isAuthRoute = authRoutes.includes(nextUrl.pathname as any);
 
   if (isApiAuthRoute) {
     // allow all api auth routes
@@ -28,7 +23,7 @@ export default auth((req) => {
   if (isAuthRoute) {
     if (isLoggedIn) {
       // redirect to default login redirect if user is logged in and trying to access auth route
-      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+      return NextResponse.redirect(new URL(PAGES.SETTINGS_PAGE, nextUrl));
     }
 
     return NextResponse.next();

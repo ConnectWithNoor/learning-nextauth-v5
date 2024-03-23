@@ -36,7 +36,7 @@ export const register = async (
   // send verification email when user register with credentials
 
   try {
-    return await sendVerificationTokenEmail(email, hostname);
+    return await sendVerificationTokenEmail(email);
   } catch (error) {
     if (error instanceof Error) {
       console.error("Error sending verification email", error.message);

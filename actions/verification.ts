@@ -28,7 +28,7 @@ const generateVerificationToken = async (email: string) => {
   return verificationToken;
 };
 
-const sendVerificationTokenEmail = async (email: string, hostname: string) => {
+const sendVerificationTokenEmail = async (email: string) => {
   const existingToken = await getVerificationTokenByEmail(email);
 
   if (existingToken?.id) {
@@ -49,8 +49,9 @@ const sendVerificationTokenEmail = async (email: string, hostname: string) => {
   // if token is expired or didn't exist, generate a new one
 
   const newVerificationToken = await generateVerificationToken(email);
+
   if (newVerificationToken) {
-    await sendVerificationEmail(email, newVerificationToken.token, hostname);
+    await sendVerificationEmail(email, newVerificationToken.token);
 
     return {
       success: "Verification email sent. Please check your inbox.",

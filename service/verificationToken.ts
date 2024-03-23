@@ -57,12 +57,9 @@ const createVerificationToken = async (
   }
 };
 
-const sendVerificationEmail = async (
-  email: string,
-  token: string,
-  hostname: string
-) => {
+const sendVerificationEmail = async (email: string, token: string) => {
   try {
+    const hostname = process.env.ROOT_URL;
     const confirmLink = `${hostname}/auth/new-verification?token=${token}`;
     await resend.emails.send({
       from: `${process.env.EMAIL_FROM}`,
@@ -70,7 +67,10 @@ const sendVerificationEmail = async (
       subject: "Confirm your email",
       react: VerificationTemplateEmail({ confirmLink }),
     });
+    console.log("123");
   } catch (error) {
+    console.error("error while sending email", error);
+
     return null;
   }
 };

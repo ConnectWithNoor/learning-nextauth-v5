@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { Session } from "next-auth";
 import { UserRole as UserRoleSchemaType } from "@prisma/client";
 
 import authConfig from "@/packages/nextauth/auth.config";
@@ -6,6 +6,7 @@ import customPrismaAdapter from "@/packages/nextauth/custom-prisma-adapter";
 
 import { db } from "@/lib/db";
 import { getUserById } from "@/service/user";
+import { sendVerificationTokenEmail } from "@/actions/verification";
 // import { PAGES } from "@/global/routes";
 
 export const {
@@ -17,12 +18,21 @@ export const {
   // pages are buggy in v5. a PR is currently open to fix this
   // https://github.com/nextauthjs/next-auth/issues/9994
   // https://github.com/nextauthjs/next-auth/pull/10288
+  events: {
+    createUser: async ({ user }) => {
+      const newUser = user as Session["user"];
+      if (!newUser.emailVerified) {
+        // send email verification on unverified OAuth Signups email
 
-  // pages: {
-  //   signIn: PAGES.LOGIN,
-  //   error: PAGES.ERROR,
-  // },
-
+        await sendVerificationTokenEmail(`${newUser.email}`);
+      }
+    },
+  },
+  pages: {
+    // signIn: PAGES.LOGIN,
+    // error: PAGES.ERROR,
+    // newUser: "/auth/welcome",
+  },
   callbacks: {
     async signIn({ user }) {
       if (!user?.id) return false;
@@ -70,7 +80,8 @@ export const {
 
       // check if user this is a new session or not
       if (typeof isNewUser === "boolean") {
-        token.isNewUser = isNewUser;
+        // user is considered new only when they are not verified
+        token.isNewUser = isNewUser && !existingUser.emailVerified;
       }
 
       return token;

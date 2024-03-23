@@ -20,6 +20,4 @@ const authRoutes = [PAGES.LOGIN, PAGES.REGISTER, PAGES.ERROR];
  */
 const apiAuthPrefix = "/api/auth";
 
-const DEFAULT_LOGIN_REDIRECT = PAGES.SETTINGS_PAGE;
-
-export { publicRoutes, authRoutes, apiAuthPrefix, DEFAULT_LOGIN_REDIRECT };
+export { publicRoutes, authRoutes, apiAuthPrefix };

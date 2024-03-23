@@ -1,6 +1,6 @@
 ## Learning how to use NextAuth V5 (Auth.js V5)
 
-[Preview](https://i.imgur.com/KlfXvY2.png)
+![Preview](https://i.imgur.com/KlfXvY2.png)
 
 #### Now Known as [Auth.js](https://authjs.dev/)
 
@@ -34,7 +34,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Authentication on server components and client components
 - Created custom prisma adapter to support custom logic OAuth account creation
 - Restrict unverified users (without email verification) to login.
-- Send verification email on signup by credentials.
+- Send verification email on signup to OAuth (only unverified emails) and credentials.
 
 #### Authentication Strategies used
 
