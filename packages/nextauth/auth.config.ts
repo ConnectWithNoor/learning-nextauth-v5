@@ -4,7 +4,7 @@ import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import type { NextAuthConfig } from "next-auth";
 
-import { getUserByEmail } from "@/service/user";
+import { getUserByEmailAction } from "@/actions/user";
 import { LoginSchema } from "@/schemas";
 
 export default {
@@ -45,7 +45,7 @@ export default {
         if (validatedfields.success) {
           const { email, password } = validatedfields.data;
 
-          const user = await getUserByEmail(email);
+          const user = await getUserByEmailAction(email);
 
           // If you return null then an error will be displayed advising the user to check their details.
 

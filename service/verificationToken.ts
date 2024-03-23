@@ -1,4 +1,5 @@
 import VerificationTemplateEmail from "@/components/auth/verification-email-template";
+import { PAGES } from "@/global/routes";
 import { db } from "@/lib/db";
 import resend from "@/lib/email";
 
@@ -60,7 +61,7 @@ const createVerificationToken = async (
 const sendVerificationEmail = async (email: string, token: string) => {
   try {
     const hostname = process.env.ROOT_URL;
-    const confirmLink = `${hostname}/auth/new-verification?token=${token}`;
+    const confirmLink = `${hostname}/auth/${PAGES.NEW_VERIFIFCATION}?token=${token}`;
     await resend.emails.send({
       from: `${process.env.EMAIL_FROM}`,
       to: email,

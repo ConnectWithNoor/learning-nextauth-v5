@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import * as z from "zod";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -24,19 +24,32 @@ import { Button } from "@/components/ui/button";
 import FormError from "@/components/ui/form-error";
 import FormSuccess from "@/components/ui/form-success";
 import { login } from "@/actions/login";
-import { AUTH_ERRORS } from "@/global/constant-msgs";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "@/global/constant-msgs";
 
 type Props = {};
 
 function LoginForm({}: Props) {
   const [isPending, startTransition] = useTransition();
-  const authErrorMessage = useSearchParams().get("error");
+  const searchParams = useSearchParams();
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
-    AUTH_ERRORS[authErrorMessage as keyof typeof AUTH_ERRORS] || undefined
+    undefined
   );
   const [successMessage, setSuccessMessage] = useState<string | undefined>(
     undefined
   );
+
+  useEffect(() => {
+    const error = searchParams.get("error");
+    const success = searchParams.get("success");
+
+    setErrorMessage(
+      ERROR_MESSAGES[error as keyof typeof ERROR_MESSAGES] || undefined
+    );
+    setSuccessMessage(
+      SUCCESS_MESSAGES[success as keyof typeof SUCCESS_MESSAGES] || undefined
+    );
+  }, [searchParams]);
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -111,7 +124,7 @@ function LoginForm({}: Props) {
           </div>
           <FormError
             message={errorMessage}
-            isResendAllowed={errorMessage === AUTH_ERRORS.AccessDenied}
+            isResendAllowed={errorMessage === ERROR_MESSAGES.AccessDenied}
             userEmail={form.getValues("email")}
           />
           <FormSuccess message={successMessage} />

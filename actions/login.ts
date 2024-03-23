@@ -4,14 +4,14 @@ import * as z from "zod";
 import { LoginSchema } from "@/schemas";
 import { signIn } from "@/packages/nextauth/auth";
 import { AuthError } from "next-auth";
-import { AUTH_ERRORS } from "@/global/constant-msgs";
+import { ERROR_MESSAGES } from "@/global/constant-msgs";
 import { PAGES } from "@/global/routes";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    return { error: "Invalid fields!" };
+    return { error: ERROR_MESSAGES.InvalidField };
   }
   const { email, password } = validatedFields.data;
 
@@ -24,7 +24,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   } catch (error) {
     if (error instanceof AuthError) {
       const errorMessage =
-        AUTH_ERRORS[error.type as keyof typeof AUTH_ERRORS] ||
+        ERROR_MESSAGES[error.type as keyof typeof ERROR_MESSAGES] ||
         "An error occurred!";
 
       return { error: errorMessage };

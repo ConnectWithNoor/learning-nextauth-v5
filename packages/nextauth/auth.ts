@@ -5,7 +5,7 @@ import authConfig from "@/packages/nextauth/auth.config";
 import customPrismaAdapter from "@/packages/nextauth/custom-prisma-adapter";
 
 import { db } from "@/lib/db";
-import { getUserById } from "@/service/user";
+import { getUserByIdAction } from "@/actions/user";
 import { sendVerificationTokenEmail } from "@/actions/verification";
 // import { PAGES } from "@/global/routes";
 
@@ -36,7 +36,7 @@ export const {
   callbacks: {
     async signIn({ user }) {
       if (!user?.id) return false;
-      const existingUser = await getUserById(user.id);
+      const existingUser = await getUserByIdAction(user.id);
       if (!existingUser) {
         // assuming that the user has just registered for the first time and  is not verified
 
@@ -73,7 +73,7 @@ export const {
       const id = token.sub;
       if (!id) return token; //no id means logged out
 
-      const existingUser = await getUserById(id);
+      const existingUser = await getUserByIdAction(id);
       if (!existingUser) return token;
       token.role = existingUser.role;
       token.emailVerified = existingUser.emailVerified;

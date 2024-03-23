@@ -1,5 +1,5 @@
 // these are next-auth error codes
-const AUTH_ERRORS = {
+const ERROR_MESSAGES = {
   Signin: "Try signing with a different account.",
   OAuthSignin: "Try signing with a different account.",
   OAuthCallback: "Try signing with a different account.",
@@ -10,9 +10,17 @@ const AUTH_ERRORS = {
   EmailSignin: "Check your email address.",
   CredentialsSignin: "Invalid credentials!",
   AccessDenied: "Please confirm your account or contact administrator.",
+  InvalidField: "Invalid fields!",
+  EmailInUse: "Email already in use",
+  InternalServerError:
+    "We have encountered an internal error. Please try again later.",
   default: "Unable to sign in.",
 } as const;
 
-const SUCCESS_MESSAGES = {} as const;
+const SUCCESS_MESSAGES = {
+  EmailVerificationSent: "Email verification sent! Please check your inbox.",
+  AlreadySentVerificationEmail:
+    "You have already received a verification email. Please check your inbox.",
+} as const;
 
-export { AUTH_ERRORS, SUCCESS_MESSAGES };
+export { ERROR_MESSAGES, SUCCESS_MESSAGES };

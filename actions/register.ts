@@ -4,8 +4,9 @@ import * as z from "zod";
 import { RegisterSchema } from "@/schemas";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
-import { getUserByEmail } from "@/service/user";
+import { getUserByEmailAction } from "@/actions/user";
 import { sendVerificationTokenEmail } from "@/actions/verification";
+import { ERROR_MESSAGES } from "@/global/constant-msgs";
 
 export const register = async (
   values: z.infer<typeof RegisterSchema>,
@@ -14,14 +15,14 @@ export const register = async (
   const validatedFields = RegisterSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    return { error: "Invalid fields!" };
+    return { error: ERROR_MESSAGES.InvalidField };
   }
 
   const { email, password, name } = validatedFields.data;
-  const existingUser = await getUserByEmail(email);
+  const existingUser = await getUserByEmailAction(email);
 
   if (existingUser) {
-    return { error: "Email already in use" };
+    return { error: ERROR_MESSAGES.EmailInUse };
   }
 
   // if new user, hash password and create user
@@ -41,6 +42,6 @@ export const register = async (
     if (error instanceof Error) {
       console.error("Error sending verification email", error.message);
     }
-    return { success: "We have encountered an internal error" };
+    return { error: ERROR_MESSAGES.InternalServerError };
   }
 };

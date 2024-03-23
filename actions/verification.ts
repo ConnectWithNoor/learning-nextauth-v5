@@ -8,6 +8,7 @@ import {
 } from "@/service/verificationToken";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "@/global/constant-msgs";
 
 const generateVerificationToken = async (email: string) => {
   const token = uuidv4();
@@ -40,8 +41,7 @@ const sendVerificationTokenEmail = async (email: string) => {
 
     if (!isExpired) {
       return {
-        success:
-          "You have already received a verification email. Please check your inbox.",
+        success: SUCCESS_MESSAGES.AlreadySentVerificationEmail,
       };
     }
   }
@@ -54,11 +54,11 @@ const sendVerificationTokenEmail = async (email: string) => {
     await sendVerificationEmail(email, newVerificationToken.token);
 
     return {
-      success: "Verification email sent. Please check your inbox.",
+      success: SUCCESS_MESSAGES.EmailVerificationSent,
     };
   }
   return {
-    error: "We have encountered an internal error",
+    error: ERROR_MESSAGES.InternalServerError,
   };
 };
 
