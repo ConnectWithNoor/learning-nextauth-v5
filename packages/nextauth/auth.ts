@@ -91,4 +91,5 @@ export const {
 
   session: { strategy: "jwt" },
   ...authConfig,
+  debug: process.env.NODE_ENV === "development",
 });

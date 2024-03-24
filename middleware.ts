@@ -1,29 +1,42 @@
-import NextAuth from "next-auth";
-import authConfig from "@/packages/nextauth/auth.config";
-import { apiAuthPrefix, authRoutes, publicRoutes } from "@/routes";
+import { authRoutes, nextAuthBuildInRoutes, publicRoutes } from "@/routes";
 import { NextResponse } from "next/server";
 import { PAGES } from "./global/routes";
 
-const { auth } = NextAuth(authConfig);
+import { auth } from "@/packages/nextauth/auth";
 
 export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
+  const userSession = req.auth?.user || null;
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+  const isApiAuthRoute = nextUrl.pathname.startsWith(PAGES.API_AUTH_PREFIX);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname as any);
 
   if (isApiAuthRoute) {
-    // allow all api auth routes
+    // redirect to login page if user goes to nextauth build-in routes
+    if (nextAuthBuildInRoutes.includes(nextUrl.pathname as any)) {
+      const searchParams = new URL(req.nextUrl.clone()).searchParams;
+      const redirectToLoginRoute = new URL(PAGES.LOGIN, nextUrl);
+
+      for (const [key, value] of searchParams.entries()) {
+        redirectToLoginRoute.searchParams.append(key, value);
+      }
+
+      return NextResponse.redirect(new URL(redirectToLoginRoute, req.url));
+    }
+
+    // else allow all api auth routes
     return NextResponse.next();
   }
 
-  // if user is logged in
+  // if it is an auth route
   if (isAuthRoute) {
     if (isLoggedIn) {
-      // redirect to default login redirect if user is logged in and trying to access auth route
-      return NextResponse.redirect(new URL(PAGES.SETTINGS_PAGE, nextUrl));
+      if (userSession?.emailVerified) {
+        // redirect to default login redirect if user is logged in and trying to access auth route
+        return NextResponse.redirect(new URL(PAGES.SETTINGS_PAGE, nextUrl));
+      }
     }
 
     return NextResponse.next();
@@ -34,6 +47,18 @@ export default auth((req) => {
     if (!isPublicRoute) {
       // redirect to login page if user is not logged in and trying to access protected route
       return NextResponse.redirect(new URL(PAGES.LOGIN, nextUrl));
+    }
+  }
+
+  if (!isPublicRoute) {
+    if (isLoggedIn) {
+      if (!userSession?.emailVerified) {
+        // redirect to login page if user is not verified and tring to login
+        const redirectToLoginRoute = new URL(PAGES.LOGIN, nextUrl);
+        redirectToLoginRoute.searchParams.set("error", "AccessDenied");
+
+        return NextResponse.redirect(new URL(redirectToLoginRoute, nextUrl));
+      }
     }
   }
 

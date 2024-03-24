@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { sendVerificationTokenEmail } from "@/actions/verification";
 import { getUserByEmailAction } from "@/actions/user";
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "@/global/constant-msgs";
+import { SUCCESS_MESSAGES } from "@/global/constant-msgs";
 
 type Props = {
   userEmail?: string;

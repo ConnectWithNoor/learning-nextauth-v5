@@ -49,6 +49,7 @@ model User {
   password      String?
   role          UserRole  @default(USER)
   accounts      Account[]
+  token         VerificationToken[]
 }
 
 model VerificationToken {
@@ -56,6 +57,9 @@ model VerificationToken {
   email      String
   token      String   @unique
   expires    DateTime
+
+  user User @relation(fields: [email], references: [email], onDelete: Cascade)
+
 
   @@unique([email, token])
 }

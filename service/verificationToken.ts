@@ -61,7 +61,7 @@ const createVerificationToken = async (
 const sendVerificationEmail = async (email: string, token: string) => {
   try {
     const hostname = process.env.ROOT_URL;
-    const confirmLink = `${hostname}/auth/${PAGES.NEW_VERIFIFCATION}?token=${token}`;
+    const confirmLink = `${hostname}/auth${PAGES.NEW_VERIFIFCATION}?token=${token}`;
     await resend.emails.send({
       from: `${process.env.EMAIL_FROM}`,
       to: email,
