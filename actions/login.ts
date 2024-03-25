@@ -1,9 +1,9 @@
 "use server";
 
 import * as z from "zod";
+import { AuthError } from "next-auth";
 import { LoginSchema } from "@/schemas";
 import { signIn } from "@/packages/nextauth/auth";
-import { AuthError } from "next-auth";
 import { ERROR_MESSAGES } from "@/global/constant-msgs";
 import { PAGES } from "@/global/routes";
 

@@ -33,8 +33,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Authentication on server components and client components
 - Created custom prisma adapter to support custom logic OAuth account creation
 - Restrict unverified users (without email verification) to login(for credentials and OAuth) (using middleware, signin callback).
-- Send verification email on signup to OAuth (only unverified emails) and credentials.
-- added resend verification email feature on login of unverified accounts. (credentials and OAuth)
+- Send verification token email on signup to OAuth (only unverified emails) and credentials.
+- added resend verification token email feature on login of unverified accounts. (credentials and OAuth)
+- activate account by verification token
 
 #### Authentication Strategies used
 

@@ -1,13 +1,14 @@
 "use server";
 
+import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 import {
   createVerificationToken,
   getVerificationTokenByEmail,
   removeVerificationTokenById,
   sendVerificationEmail,
+  verifyToken,
 } from "@/service/verificationToken";
-import { v4 as uuidv4 } from "uuid";
-import moment from "moment";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "@/global/constant-msgs";
 
 const generateVerificationToken = async (email: string) => {
@@ -62,4 +63,12 @@ const sendVerificationTokenEmail = async (email: string) => {
   };
 };
 
-export { generateVerificationToken, sendVerificationTokenEmail };
+const verifyTokenAction = async (token: string) => {
+  return verifyToken(token);
+};
+
+export {
+  generateVerificationToken,
+  sendVerificationTokenEmail,
+  verifyTokenAction,
+};

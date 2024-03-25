@@ -1,5 +1,5 @@
-import { PAGES } from "@/global/routes";
 import Link from "next/link";
+import { PAGES } from "@/global/routes";
 
 type Props = {
   children: React.ReactNode;

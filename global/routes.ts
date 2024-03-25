@@ -8,7 +8,7 @@ export const PAGES = {
   Welcome: "/welcome",
 
   // account verification
-  NEW_VERIFIFCATION: "/new-verification",
+  NEW_VERIFIFCATION: "/auth/new-verification",
 
   // settings page
   SETTINGS_PAGE: "/settings",

@@ -14,6 +14,8 @@ const ERROR_MESSAGES = {
   EmailInUse: "Email already in use",
   InternalServerError:
     "We have encountered an internal error. Please try again later.",
+  InvalidToken: "Invalid token.",
+  TokenExpired: "Token expired. Please request a new one.",
   default: "Unable to sign in.",
 } as const;
 
@@ -21,6 +23,8 @@ const SUCCESS_MESSAGES = {
   EmailVerificationSent: "Email verification sent! Please check your inbox.",
   AlreadySentVerificationEmail:
     "You have already received a verification email. Please check your inbox.",
+  TokenVerified: "Your account has been verified! Redirecting to signin...",
+  default: "Success!",
 } as const;
 
 export { ERROR_MESSAGES, SUCCESS_MESSAGES };

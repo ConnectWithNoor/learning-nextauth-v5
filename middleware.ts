@@ -34,6 +34,12 @@ export default auth((req) => {
   if (isAuthRoute) {
     if (isLoggedIn) {
       if (userSession?.emailVerified) {
+        if (nextUrl.pathname === PAGES.NEW_VERIFIFCATION) {
+          // allow user to access new verification page if user is logged in and verified
+          // this is allowed since user can update their email and password and they will be required to
+          // verify it again
+          return NextResponse.next();
+        }
         // redirect to default login redirect if user is logged in and trying to access auth route
         return NextResponse.redirect(new URL(PAGES.SETTINGS_PAGE, nextUrl));
       }

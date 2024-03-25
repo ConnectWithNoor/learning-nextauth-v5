@@ -1,5 +1,5 @@
-import LoginForm from "@/components/auth/login-form";
 import React, { Suspense } from "react";
+import LoginForm from "@/components/auth/login-form";
 
 type Props = {};
 

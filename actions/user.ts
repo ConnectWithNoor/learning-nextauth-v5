@@ -17,4 +17,4 @@ const updateUserByIdAction = async (
   return await updateUserById(id, data);
 };
 
-export { getUserByEmailAction, getUserByIdAction };
+export { getUserByEmailAction, getUserByIdAction, updateUserByIdAction };

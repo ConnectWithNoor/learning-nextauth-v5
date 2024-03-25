@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import { sendVerificationTokenEmail } from "@/actions/verification";
 import { getUserByEmailAction } from "@/actions/user";
 import { SUCCESS_MESSAGES } from "@/global/constant-msgs";
@@ -52,7 +52,6 @@ function ResendEmailButton({ userEmail }: Props) {
       }
       // send success message
     } catch (error) {
-      console.log("error", error);
     } finally {
       setisLoading(false);
     }
