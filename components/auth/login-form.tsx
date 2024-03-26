@@ -4,6 +4,7 @@ import React, { useEffect, useState, useTransition } from "react";
 import * as z from "zod";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
+import Link from "next/link";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -64,8 +65,8 @@ function LoginForm({}: Props) {
 
     startTransition(() => {
       login(values).then((data) => {
-        setErrorMessage(data.error);
-        setSuccessMessage(data.success);
+        setErrorMessage(data?.error);
+        setSuccessMessage(data?.success);
       });
     });
   };
@@ -117,6 +118,14 @@ function LoginForm({}: Props) {
                       disabled={isPending}
                     />
                   </FormControl>
+                  <Button
+                    size="sm"
+                    variant="link"
+                    asChild
+                    className="px-0 font-normal"
+                  >
+                    <Link href={PAGES.FORGET_PASSWORD}>Forgot password?</Link>
+                  </Button>
                   <FormMessage />
                 </FormItem>
               )}

@@ -3,12 +3,14 @@ export const PAGES = {
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",
   ERROR: "/auth/error",
+  FORGET_PASSWORD: "/auth/forget-password",
 
   // welcome
   Welcome: "/welcome",
 
   // account verification
   NEW_VERIFIFCATION: "/auth/new-verification",
+  NEW_PASSOWRD: "/auth/new-password",
 
   // settings page
   SETTINGS_PAGE: "/settings",

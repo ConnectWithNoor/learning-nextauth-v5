@@ -28,4 +28,10 @@ const RegisterSchema = z
     }
   });
 
-export { LoginSchema, RegisterSchema };
+const forgetPasswordSchema = z.object({
+  email: z.string().email({
+    message: "Email is required",
+  }),
+});
+
+export { LoginSchema, RegisterSchema, forgetPasswordSchema };

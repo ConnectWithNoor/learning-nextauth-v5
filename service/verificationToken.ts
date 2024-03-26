@@ -68,7 +68,7 @@ const sendVerificationEmail = async (email: string, token: string) => {
       from: `${process.env.EMAIL_FROM}`,
       to: email,
       subject: "Confirm your email",
-      react: VerificationTemplateEmail({ confirmLink }),
+      react: VerificationTemplateEmail({ link: confirmLink }),
     });
     return;
   } catch (error) {

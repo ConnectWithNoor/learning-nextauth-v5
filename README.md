@@ -36,6 +36,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Send verification token email on signup to OAuth (only unverified emails) and credentials.
 - added resend verification token email feature on login of unverified accounts. (credentials and OAuth)
 - activate account by verification token
+- Reset password for users registered with credentials (OAuth doesn't have a password)
 
 #### Authentication Strategies used
 

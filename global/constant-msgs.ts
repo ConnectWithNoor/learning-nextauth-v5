@@ -17,12 +17,17 @@ const ERROR_MESSAGES = {
   InvalidToken: "Invalid token.",
   TokenExpired: "Token expired. Please request a new one.",
   default: "Unable to sign in.",
+  OAuthResetPasswordNotAllowed:
+    "Your account doesn't have a password. Please sign in with your social account.",
 } as const;
 
 const SUCCESS_MESSAGES = {
   EmailVerificationSent: "Email verification sent! Please check your inbox.",
+  PasswordResetEmailSent: "Instructions sent! Please check your inbox.",
   AlreadySentVerificationEmail:
     "You have already received a verification email. Please check your inbox.",
+  AlreadySentPassowrdResetEmail:
+    "You have already received a password reset email. Please check your inbox.",
   TokenVerified: "Your account has been verified! Redirecting to signin...",
   default: "Success!",
 } as const;
