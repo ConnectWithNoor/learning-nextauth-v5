@@ -34,4 +34,21 @@ const forgetPasswordSchema = z.object({
   }),
 });
 
-export { LoginSchema, RegisterSchema, forgetPasswordSchema };
+const newPasswordSchema = z
+  .object({
+    password: z.string().min(6, { message: "Minimum 6 characters required" }),
+    confirmPassword: z
+      .string()
+      .min(6, { message: "Minimum 6 characters required" }),
+  })
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (password !== confirmPassword) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["confirmPassword"],
+        message: "Passwords do not match",
+      });
+    }
+  });
+
+export { LoginSchema, RegisterSchema, forgetPasswordSchema, newPasswordSchema };

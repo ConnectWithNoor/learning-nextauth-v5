@@ -89,7 +89,7 @@ function ForgetPasswordForm({}: Props) {
           <FormError message={errorMessage} />
           <FormSuccess message={successMessage} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            Resed reset email
+            Send password reset email
           </Button>
         </form>
       </Form>

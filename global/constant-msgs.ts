@@ -29,6 +29,7 @@ const SUCCESS_MESSAGES = {
   AlreadySentPassowrdResetEmail:
     "You have already received a password reset email. Please check your inbox.",
   TokenVerified: "Your account has been verified! Redirecting to signin...",
+  PasswordResetSuccess: "Password reset successful! Redirecting to signin...",
   default: "Success!",
 } as const;
 

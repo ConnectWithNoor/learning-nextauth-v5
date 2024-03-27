@@ -2,13 +2,15 @@
 
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "@/global/constant-msgs";
 import { v4 as uuidv4 } from "uuid";
-import { forgetPasswordSchema } from "@/schemas";
-import { getUserByEmail } from "@/service/user";
+import * as bcrypt from "bcryptjs";
+import { forgetPasswordSchema, newPasswordSchema } from "@/schemas";
+import { getUserByEmail, updateUserById } from "@/service/user";
 import { AuthError } from "next-auth";
 import * as z from "zod";
 import {
   createPasswordResetToken,
   getPassworkResetTokenByEmail,
+  getPassworkResetTokenByToken,
   removePasswordResetTokenById,
   sendPasswordResetEmail,
 } from "@/service/password-reset-token";
@@ -104,8 +106,71 @@ const sendResetPasswordEmail = async (email: string) => {
   };
 };
 
+const verifyNewActionToken = async (token: string) => {
+  try {
+    const existingToken = await getPassworkResetTokenByToken(token);
+
+    if (!existingToken) {
+      throw new Error(ERROR_MESSAGES.InvalidToken);
+    }
+
+    // check if token is expired
+    const tokenExpiration = moment(existingToken.expires);
+    const currentTime = moment();
+
+    const isExpired = tokenExpiration.isBefore(currentTime);
+    if (isExpired) {
+      throw new Error(ERROR_MESSAGES.TokenExpired);
+    }
+
+    return { success: SUCCESS_MESSAGES.TokenVerified };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    }
+  }
+};
+
+const newPasswordAction = async (
+  token: string,
+  values: z.infer<typeof newPasswordSchema>
+) => {
+  const validatedFields = newPasswordSchema.safeParse(values);
+  if (!validatedFields.success) {
+    throw new Error(ERROR_MESSAGES.InvalidField);
+  }
+
+  const existingToken = await getPassworkResetTokenByToken(token);
+  if (!existingToken) {
+    throw new Error(ERROR_MESSAGES.InvalidToken);
+  }
+
+  // get user by email and check it it exists (to prevent if the use change email in the meantime)
+  try {
+    const exisitngUser = await getUserByEmail(existingToken.email);
+    if (!exisitngUser?.id || !exisitngUser?.email) {
+      throw new Error(ERROR_MESSAGES.CredentialsSignin);
+    }
+
+    // set user new password in db
+    const hashedPassword = await bcrypt.hash(validatedFields.data.password, 10);
+    await updateUserById(exisitngUser.id, { password: hashedPassword });
+    // delete token from db
+
+    await removePasswordResetTokenById(existingToken.id);
+
+    return { success: SUCCESS_MESSAGES.PasswordResetSuccess };
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message };
+    }
+  }
+};
+
 export {
   forgetPasswordAction,
   generateForgetPasswordToken,
   sendResetPasswordEmail,
+  verifyNewActionToken,
+  newPasswordAction,
 };
