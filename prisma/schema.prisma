@@ -49,8 +49,9 @@ model User {
   password      String?
   role          UserRole  @default(USER)
   accounts      Account[]
-  verificationToken         VerificationToken[]
-  passwordResetToken         PasswordResetToken[]
+  verificationToken         VerificationToken[] // account verification token
+  passwordResetToken         PasswordResetToken[] //password reset token
+
 }
 
 model VerificationToken {
@@ -59,7 +60,7 @@ model VerificationToken {
   token      String   @unique
   expires    DateTime
 
-  user User @relation(fields: [email], references: [email], onDelete: Cascade)
+  user User @relation(fields: [email], references: [email], onDelete: Cascade, onUpdate: Cascade)
 
 
   @@unique([email, token])
@@ -71,7 +72,8 @@ model PasswordResetToken {
   token      String   @unique
   expires    DateTime
 
-  user User @relation(fields: [email], references: [email], onDelete: Cascade)
+  user User @relation(fields: [email], references: [email], onDelete: Cascade, onUpdate: Cascade)
 
   @@unique([email, token])
 }
+
