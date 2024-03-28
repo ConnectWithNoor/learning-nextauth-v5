@@ -15,6 +15,15 @@ export const PAGES = {
   // settings page
   SETTINGS_PAGE: "/settings",
 
+  // server page
+  SERVER_PAGE: "/server",
+
+  // client page
+  CLIENT_PAGE: "/client",
+
+  // admin page
+  ADMIN_PAGE: "/admin",
+
   // API routes
   API_AUTH_PREFIX: "/api/auth",
   // next-auth build-in routes

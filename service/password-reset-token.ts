@@ -1,3 +1,5 @@
+import "server-only";
+
 import VerificationTemplateEmail from "@/components/auth/verification-email-template";
 import { PAGES } from "@/global/routes";
 import { db } from "@/lib/db";
