@@ -37,6 +37,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - added resend verification token email feature on login of unverified accounts. (credentials and OAuth)
 - activate account by verification token
 - Reset password for users registered with credentials (OAuth doesn't have a password)
+- Accessing user session data in client as well as server component
 
 #### Authentication Strategies used
 
