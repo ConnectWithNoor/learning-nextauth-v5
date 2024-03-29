@@ -28,4 +28,5 @@ export const PAGES = {
   API_AUTH_PREFIX: "/api/auth",
   // next-auth build-in routes
   NEXT_AUTH_API_AUTH_ERROR: "/api/auth/error",
+  NEXT_AUTH_API_AUTH_SIGNIN: "/api/auth/signin",
 } as const;

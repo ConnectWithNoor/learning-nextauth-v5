@@ -11,6 +11,9 @@ const authRoutes = [
   PAGES.NEW_PASSOWRD,
 ];
 
-const nextAuthBuildInRoutes = [PAGES.NEXT_AUTH_API_AUTH_ERROR];
+const nextAuthBuildInRoutes = [
+  PAGES.NEXT_AUTH_API_AUTH_ERROR,
+  PAGES.NEXT_AUTH_API_AUTH_SIGNIN,
+];
 
 export { publicRoutes, authRoutes, nextAuthBuildInRoutes };
