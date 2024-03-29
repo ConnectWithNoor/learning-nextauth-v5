@@ -19,6 +19,7 @@ const ERROR_MESSAGES = {
   default: "Unable to sign in.",
   OAuthResetPasswordNotAllowed:
     "Your account doesn't have a password. Please sign in with your social account.",
+  PermissionDenied: "You do not have permission to perform this action.",
 } as const;
 
 const SUCCESS_MESSAGES = {
