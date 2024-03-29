@@ -39,6 +39,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Accessing user session data in client as well as server component
 - Role based UI Authentication (Admin and User) (RoleGate)
 - Role based API Route and Server Action authentication (Admin and User)
+- update jwt and session manually using jwt callback (some usecases are when user updates their profile, new jwt is issued by refresh token)
 
 #### Authentication Strategies used
 

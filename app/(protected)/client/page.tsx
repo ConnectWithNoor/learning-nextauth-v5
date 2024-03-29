@@ -9,6 +9,7 @@ type Props = {};
 
 function ClientPage({}: Props) {
   const session = UseCurrentUser();
+
   return <UserInfo user={session} label="📱 Client component" />;
 }
 

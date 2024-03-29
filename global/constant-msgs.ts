@@ -16,10 +16,10 @@ const ERROR_MESSAGES = {
     "We have encountered an internal error. Please try again later.",
   InvalidToken: "Invalid token.",
   TokenExpired: "Token expired. Please request a new one.",
-  default: "Unable to sign in.",
   OAuthResetPasswordNotAllowed:
     "Your account doesn't have a password. Please sign in with your social account.",
   PermissionDenied: "You do not have permission to perform this action.",
+  default: "Unable to sign in.",
 } as const;
 
 const SUCCESS_MESSAGES = {

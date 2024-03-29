@@ -14,6 +14,7 @@ export const {
   auth,
   signIn,
   signOut,
+  unstable_update: updateSession,
 } = NextAuth({
   // pages are buggy in v5. a PR is currently open to fix this
   // https://github.com/nextauthjs/next-auth/issues/9994
@@ -55,7 +56,6 @@ export const {
       if (token?.sub && session.user) {
         session.user.id = token.sub; // sub is the user id in db
       }
-
       if (token.role && session.user) {
         // get type definitions in next-auth.d.ts
         session.user.role = token.role as UserRoleSchemaType;
@@ -69,9 +69,14 @@ export const {
       return session;
     },
 
-    async jwt({ token, isNewUser }) {
+    async jwt({ token, isNewUser, trigger, session }) {
       const id = token.sub;
       if (!id) return token; //no id means logged out
+
+      // trigger update only works when session is updated manually
+      if (trigger === "update") {
+        return { ...token, ...session.user };
+      }
 
       const existingUser = await getUserByIdAction(id);
       if (!existingUser) return token;

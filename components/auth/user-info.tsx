@@ -9,7 +9,7 @@ type Props = {
 
 function UserInfo({ label, user }: Props) {
   return (
-    <Card className="w-[600] shadow-md">
+    <Card className="w-[600px] shadow-md">
       <CardHeader>
         <p className="text-2xl font-semibold text-center">{label}</p>
       </CardHeader>

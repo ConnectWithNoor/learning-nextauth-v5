@@ -51,4 +51,14 @@ const newPasswordSchema = z
     }
   });
 
-export { LoginSchema, RegisterSchema, forgetPasswordSchema, newPasswordSchema };
+const userSettingsSchema = z.object({
+  name: z.optional(z.string()),
+});
+
+export {
+  LoginSchema,
+  RegisterSchema,
+  forgetPasswordSchema,
+  newPasswordSchema,
+  userSettingsSchema,
+};
