@@ -78,7 +78,7 @@ function NewPasswordForm({}: Props) {
 
       verifyForgetPasswordToken();
     }
-  }, []);
+  }, [router, searchParams]);
 
   const form = useForm<z.infer<typeof newPasswordSchema>>({
     resolver: zodResolver(newPasswordSchema),

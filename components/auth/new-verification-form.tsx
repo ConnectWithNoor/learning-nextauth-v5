@@ -58,7 +58,7 @@ function NewVerificationForm({}: Props) {
 
       cb();
     }
-  }, []);
+  }, [router, searchParams]);
 
   return (
     <CardWrapper
